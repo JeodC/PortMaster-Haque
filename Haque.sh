@@ -13,7 +13,6 @@ else
 fi
 
 source $controlfolder/control.txt
-export PORT_32BIT="Y"
 [ -f "${controlfolder}/mod_${CFW_NAME}.txt" ] && source "${controlfolder}/mod_${CFW_NAME}.txt"
 get_controls
 
@@ -26,7 +25,6 @@ cd $GAMEDIR
 $ESUDO chmod +x -R $GAMEDIR/*
 
 # Exports
-export LD_LIBRARY_PATH="/usr/lib32:$GAMEDIR/lib:$LD_LIBRARY_PATH"
 export PATCHER_FILE="$GAMEDIR/tools/patchscript"
 export PATCHER_GAME="$(basename "${0%.*}")" # This gets the current script filename without the extension
 export PATCHER_TIME="2 to 5 minutes"
@@ -48,6 +46,11 @@ if [ ! -f patchlog.txt ]; then
 else
     echo "Patching process already completed. Skipping."
 fi
+
+# Post patcher setup
+export PORT_32BIT="Y"
+[ -f "${controlfolder}/mod_${CFW_NAME}.txt" ] && source "${controlfolder}/mod_${CFW_NAME}.txt"
+export LD_LIBRARY_PATH="/usr/lib32:$GAMEDIR/lib:$LD_LIBRARY_PATH"
 
 # Display loading splash
 if [ -f "$GAMEDIR/patchlog.txt" ]; then
