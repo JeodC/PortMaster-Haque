@@ -1,3 +1,19 @@
+## Default Gameplay Controls
+| Button            | Action                                |
+|--                 |--                                     |
+| START             | Menus                                 |
+| SELECT            | Wait                                  |
+| D-PAD / JOYSTICK  | Move                                  |
+| A                 | Confirm                               |
+| B                 | Deny                                  |
+| X                 | Backpack                              |
+| Y                 | Ally AI                               |
+| L1                | Shift                                 |
+| L2                | Quick Skill                           |
+| R1                | Map                                   |
+| R2                | Quick Item                            |
+
+
 ## Thanks
 SuperTry Studios -- The amazing game  
 Shorono -- The logo from SteamGridDB  
