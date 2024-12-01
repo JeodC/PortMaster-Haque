@@ -83,7 +83,7 @@ zip_archive() {
 
 process_game() {
     # Delete unnecessary files
-    rm -rf $DATADIR/*.exe $DATADIR/*.dll $DATADIR/.gitkeep
+    rm -rf $DATADIR/*.exe $DATADIR/*.dll $DATADIR/.gitkeep $DATADIR/gamedat
     echo "Removed unnecessary files"
     
     echo "Unzipping a file..."
