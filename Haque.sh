@@ -50,7 +50,7 @@ export LD_LIBRARY_PATH="/usr/lib32:$GAMEDIR/lib:$LD_LIBRARY_PATH"
 # Display loading splash
 if [ -f "$GAMEDIR/patchlog.txt" ]; then
     $ESUDO ./tools/splash "splash.png" 1 
-    $ESUDO ./tools/splash "splash.png" 2000
+    $ESUDO ./tools/splash "splash.png" 4000 &
 fi
 
 # Assign gptokeyb and load the game

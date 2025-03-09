@@ -24,10 +24,13 @@ chmod 777 "$TOOLDIR/oggenc"
 cd "$GAMEDIR"
 
 unzip_archive() {
-    # Unzip the Haque_Text.zip file if it exists
-    if [ -f "$DATADIR/Haque_Text.zip" ]; then
-        unzip "$DATADIR/Haque_Text.zip" -d $DATADIR
-        rm -rf "$DATADIR/Haque_Text.zip"
+    # Unzip the Haque_Text.zip file if it exists (case-insensitive)
+    file=$(find "$DATADIR" -iname "Haque_Text.zip" | head -n 1)
+
+    if [ -n "$file" ]; then
+        unzip "$file" -d "$DATADIR"
+        find "$DATADIR/Haque_Text" -type f -exec dos2unix -c utf-8 {} \;
+        rm -rf "$file"
     else
         echo "Couldn't find Haque_Text.zip! Game will not run!"
         sleep 2
@@ -35,22 +38,11 @@ unzip_archive() {
     fi
 }
 
-apply_xdelta() {
-    # Check if the data.win file exists and apply xdelta
-    if [ -f "$DATADIR/data.win" ]; then
-        # Xdelta created with Steam game version
-        output=$(xdelta3 -d -s "$DATADIR/data.win" -f "./tools/patches/haque.xdelta" "$DATADIR/game.droid" 2>&1)
-        if [ $? -eq 0 ]; then
-            echo "Patch applied successfully"
-            echo "$output"
-            rm "$DATADIR/data.win"
-        else
-            echo "Failed to apply patch"
-            echo "$output"
-            exit 1
-        fi
-    else
-        echo "No data.win file found to patch!"
+rename_data() {
+    if [ -f $DATADIR/data.win ]; then
+        mv $DATADIR/data.win $DATADIR/game.droid
+    elif [ -f $DATADIR/game.unx ]; then
+        mv $DATADIR/game.unx $DATADIR/game.droid
     fi
 }
 
@@ -86,10 +78,9 @@ process_game() {
     rm -rf $DATADIR/*.exe $DATADIR/*.dll $DATADIR/.gitkeep $DATADIR/gamedat
     echo "Removed unnecessary files"
     
-    echo "Unzipping a file..."
+    echo "Preparing assets..."
     unzip_archive
-    echo "Applying xdelta patch"
-    apply_xdelta
+    rename_data
     sleep 1
     echo "Compressing audio..."
     compress_audio
