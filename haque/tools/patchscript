@@ -29,10 +29,12 @@ cd "$GAMEDIR"
 
 prepare_files() {
     # Delete unnecessary files
-    rm -rf $DATADIR/*.exe $DATADIR/*.dll $DATADIR/.gitkeep $DATADIR/gamedat
+    rm -rf $DATADIR/*.so $DATADIR/*.exe $DATADIR/*.dll $DATADIR/.gitkeep $DATADIR/gamedat $DATADIR/runner
     echo "Removed unnecessary files"
     if [ -f "$DATADIR/data.win" ]; then
         mv "$DATADIR/data.win" "$DATADIR/game.droid"
+    elif [ -f "$DATADIR/game.unx" ]; then
+        mv "$DATADIR/game.unx" "$DATADIR/game.droid"
     fi
     
     # Edit options.ini
