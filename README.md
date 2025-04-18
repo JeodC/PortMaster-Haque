@@ -1,3 +1,6 @@
+## Installation
+Buy the game on Steam or Itch.io and copy all data to `haque/assets`.
+
 ## Default Gameplay Controls
 | Button            | Action                                |
 |--                 |--                                     |
