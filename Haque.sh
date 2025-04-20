@@ -35,15 +35,13 @@ export PATCHER_TIME="5 to 10 minutes"
 export SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig"
 
 # Check if we need to patch the game
-if [ ! -f patchlog.txt ] || [ -f $GAMEDIR/assets/data.win ]; then
+if [ ! -f patchlog.txt ] || [ -f $GAMEDIR/assets/data.win ] || [ -f $GAMEDIR/assets/game.unx ]; then
     if [ -f "$controlfolder/utils/patcher.txt" ]; then
         source "$controlfolder/utils/patcher.txt"
         $ESUDO kill -9 $(pidof gptokeyb)
     else
         echo "This port requires the latest version of PortMaster."
     fi
-else
-    echo "Patching process already completed. Skipping."
 fi
 
 # Display loading splash
